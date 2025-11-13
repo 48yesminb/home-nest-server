@@ -35,7 +35,8 @@ async function run() {
 
     
     app.get("/properties", async (req, res) => {
-      const cursor = propertyCollection.find().
+      const cursor = propertyCollection.find().sort({ _id: -1 });
+      
     });
 
     app.get("/properties/:id", async (req, res) => {
