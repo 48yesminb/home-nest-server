@@ -31,13 +31,13 @@ async function run() {
 
     //  Collections
     const propertyCollection = db.collection("properties");
-    const ratingsCollection = db.collection("ratings");
+    
 
     
     app.get("/properties", async (req, res) => {
       const cursor = propertyCollection.find().sort({ _id: -1 });
       const result = await cursor.toArray();
-      
+      res.send(result);
     });
 
     app.get("/properties/:id", async (req, res) => {
@@ -97,7 +97,7 @@ async function run() {
       res.send(result);
     });
 
-    //  Delete a rating (optional)
+    //  Delete a rating
     app.delete("/ratings/:id", async (req, res) => {
       const id = req.params.id;
       const result = await ratingsCollection.deleteOne({ _id: new ObjectId(id) });
@@ -112,12 +112,12 @@ async function run() {
 
 run().catch(console.dir);
 
-// Root route
+
 app.get("/", (req, res) => {
   res.send(" Home Nest Server is running successfully");
 });
 
-// Start server
+
 app.listen(port, () => {
   console.log(` Server running at http://localhost:${port}`);
 });
