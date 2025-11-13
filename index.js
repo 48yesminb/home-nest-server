@@ -31,7 +31,7 @@ async function run() {
 
     //  Collections
     const propertyCollection = db.collection("properties");
-    
+    const ratingsCollection = db.collection("ratings");
 
     
     app.get("/properties", async (req, res) => {
@@ -83,9 +83,7 @@ async function run() {
     //  all ratings 
     app.get("/ratings", async (req, res) => {
       const email = req.query.email;
-      const query = email ? { userEmail: email } : {};
-      const result = await ratingsCollection.find(query).sort({ _id: -1 }).toArray();
-      res.send(result);
+      
     });
 
     // specific property
