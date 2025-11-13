@@ -34,7 +34,9 @@ async function run() {
     const ratingsCollection = db.collection("ratings");
 
     
-    
+    app.get("/properties", async (req, res) => {
+      
+    });
 
     app.get("/properties/:id", async (req, res) => {
       const { id } = req.params;
