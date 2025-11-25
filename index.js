@@ -141,9 +141,8 @@ app.delete("/properties/:id", verifyToken, async (req, res) => {
   }
 });
 
-// Ratings Routes
 
-// Add rating (Protected)
+// rating 
 app.post("/ratings", verifyToken, async (req, res) => {
   try {
     const { propertyId, propertyName, stars, reviewText } = req.body;
