@@ -38,7 +38,7 @@ async function connectDB() {
 
 connectDB();
 
-// ---------------- Firebase Token Verification ----------------
+//  Firebase Token Verification 
 const verifyToken = async (req, res, next) => {
   const authHeader = req.headers.authorization;
   if (!authHeader) return res.status(401).json({ message: "Unauthorized" });
@@ -53,9 +53,9 @@ const verifyToken = async (req, res, next) => {
   }
 };
 
-// ---------------- Properties Routes ----------------
+//  Properties Routes 
 
-// Get all properties (optional email filter & search)
+
 app.get("/properties", async (req, res) => {
   try {
     const email = req.query.email;
@@ -72,7 +72,7 @@ app.get("/properties", async (req, res) => {
   }
 });
 
-// Get property by ID
+
 app.get("/properties/:id", async (req, res) => {
   try {
     const property = await propertyCollection.findOne({ _id: new ObjectId(req.params.id) });
@@ -83,7 +83,7 @@ app.get("/properties/:id", async (req, res) => {
   }
 });
 
-// Add property (Protected)
+// Add property 
 app.post("/properties", verifyToken, async (req, res) => {
   try {
     const { title, description, category, price, location, image } = req.body;
@@ -107,7 +107,7 @@ app.post("/properties", verifyToken, async (req, res) => {
   }
 });
 
-// Update property (Protected & owner only)
+// Update property 
 app.patch("/properties/:id", verifyToken, async (req, res) => {
   try {
     const property = await propertyCollection.findOne({ _id: new ObjectId(req.params.id) });
@@ -126,7 +126,7 @@ app.patch("/properties/:id", verifyToken, async (req, res) => {
   }
 });
 
-// Delete property (Protected & owner only)
+// Delete property
 app.delete("/properties/:id", verifyToken, async (req, res) => {
   try {
     const property = await propertyCollection.findOne({ _id: new ObjectId(req.params.id) });
@@ -141,7 +141,7 @@ app.delete("/properties/:id", verifyToken, async (req, res) => {
   }
 });
 
-// ---------------- Ratings Routes ----------------
+// Ratings Routes
 
 // Add rating (Protected)
 app.post("/ratings", verifyToken, async (req, res) => {
@@ -165,7 +165,7 @@ app.post("/ratings", verifyToken, async (req, res) => {
   }
 });
 
-// Get ratings by property
+//  ratings property
 app.get("/ratings/property/:id", async (req, res) => {
   try {
     const ratings = await ratingsCollection.find({ propertyId: req.params.id }).sort({ createdAt: -1 }).toArray();
@@ -175,7 +175,7 @@ app.get("/ratings/property/:id", async (req, res) => {
   }
 });
 
-// Get ratings by user email
+
 app.get("/ratings", async (req, res) => {
   try {
     const email = req.query.email;
@@ -187,7 +187,7 @@ app.get("/ratings", async (req, res) => {
   }
 });
 
-// Delete rating (Protected & owner only)
+// Delete rating 
 app.delete("/ratings/:id", verifyToken, async (req, res) => {
   try {
     const rating = await ratingsCollection.findOne({ _id: new ObjectId(req.params.id) });
@@ -202,7 +202,7 @@ app.delete("/ratings/:id", verifyToken, async (req, res) => {
   }
 });
 
-// ---------------- Home Route ----------------
+//  Home Route 
 app.get("/", (req, res) => {
   res.send("Home Nest Server is running successfully");
 });
