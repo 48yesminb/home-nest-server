@@ -26,7 +26,7 @@ let ratingsCollection;
 
 async function connectDB() {
   try {
-    await client.connect();
+    // await client.connect();
     const db = client.db("homeNestDB");
     propertyCollection = db.collection("properties");
     ratingsCollection = db.collection("ratings");
